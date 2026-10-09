@@ -62,7 +62,7 @@ def load_and_clean_users(file_path):
 
         # Check each record if it contains exactly 2 fields and no empty values
         for row in records:
-            if len(row) == 2 and ('' not in row):
+            if len(row) == 2 and (all(item.strip() for item in row)): # item.stip() returns false if theres a whitespace
                 # Query to insert record into users table
                 cursor.execute("INSERT INTO users (firstName, lastName) VALUES (?, ?)", row)
 
@@ -78,7 +78,7 @@ def load_and_clean_call_logs(file_path):
 
         # Check each record if it contains exactly 5 fields and no empty values
         for row in calls:
-            if len(row) == 5 and ('' not in row):
+            if len(row) == 5 and (all(item.strip() for item in row)): # item.stip() returns false if theres a whitespace
                 # Query to insert record into callLogs table
                 cursor.execute("INSERT INTO callLogs (phoneNumber, startTime, endTime, direction, userId) VALUES (?, ?, ?, ?, ?)", row)
 
